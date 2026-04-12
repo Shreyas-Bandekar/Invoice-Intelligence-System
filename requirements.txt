@@ -58,7 +58,7 @@ notebook==7.5.5
 notebook_shim==0.2.4
 numpy==2.4.4
 packaging==26.0
-pandas==3.0.2
+pandas==2.3.3
 pandocfilters==1.5.1
 parso==0.8.6
 pexpect==4.9.0
@@ -87,6 +87,7 @@ setuptools==82.0.1
 six==1.17.0
 soupsieve==2.8.3
 stack-data==0.6.3
+streamlit==1.49.1
 terminado==0.18.1
 threadpoolctl==3.6.0
 tinycss2==1.4.0
