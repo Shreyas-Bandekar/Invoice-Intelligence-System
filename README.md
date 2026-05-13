@@ -1,46 +1,51 @@
 # Invoice Intelligence System
 
-Invoice Intelligence System is a machine learning project for procurement and finance workflows. It contains two main ML modules and a Streamlit app for interactive inference:
+Invoice Intelligence System is an end-to-end machine learning project for procurement and finance workflows. It combines two model pipelines with a Streamlit app for interactive inference.
 
-- Freight Cost Prediction for regression
-- Invoice Flagging for classification
+## Modules
 
-The repository includes training scripts, saved model artifacts, notebooks, and a lightweight UI for manual and batch predictions.
+- Freight Cost Prediction (regression)
+- Invoice Flagging (classification)
 
-## Overview
+The repository includes data preprocessing, model training, model evaluation, saved artifacts, notebooks, and a UI for single and batch prediction.
+
+## Features
 
 ### Freight Cost Prediction
 - Predicts freight cost from invoice features.
-- The current training pipeline uses the `Dollars` feature as the input.
-- Compares three regressors:
+- Uses the `Dollars` feature as the current model input.
+- Trains and compares:
   - Linear Regression
   - Decision Tree Regressor
   - Random Forest Regressor
-- Saves the best model based on lowest MAE.
+- Saves the best model by lowest MAE.
 
 ### Invoice Flagging
-- Flags invoices for manual review, where `0` means low risk and `1` means review needed.
-- Builds engineered features from `vendor_invoice` and `purchases` data.
-- Creates target labels with business-rule heuristics during preprocessing.
-- Compares three classifiers:
+- Flags invoices for manual review.
+- Target meaning:
+  - `0` = low risk
+  - `1` = review needed
+- Uses engineered features from `vendor_invoice` and `purchases`.
+- Builds labels with business-rule heuristics during preprocessing.
+- Trains and compares:
   - Logistic Regression
   - Decision Tree Classifier
   - Random Forest Classifier
-- Saves the best model based on highest weighted F1.
+- Saves the best model by highest weighted F1.
 
 ### Streamlit App
-- One interface with two prediction flows:
-  - Freight Cost Prediction for single predictions
-  - Invoice Flagging for single prediction and batch CSV scoring
-- Loads the saved models from each module.
-- Supports downloadable CSV output for batch invoice flagging.
+- Unified interface for both modules.
+- Supports:
+  - Single prediction for freight cost
+  - Single and batch CSV scoring for invoice flagging
+- Loads saved model artifacts with `joblib`.
+- Provides downloadable CSV output for batch invoice flagging.
 
 ## Data Source
 
-The project uses a SQLite database stored at `data/inventory.db`.
+SQLite database: `data/inventory.db`
 
-Main tables used:
-
+Main tables:
 - `vendor_invoice`
 - `purchases`
 
@@ -48,23 +53,23 @@ Main tables used:
 
 ### Freight Cost Prediction
 1. Load the `vendor_invoice` table.
-2. Prepare the features and target, where `X = Dollars` and `y = Freight`.
-3. Train three models and evaluate MAE, RMSE, and R2.
+2. Prepare features and target (`X = Dollars`, `y = Freight`).
+3. Train three regressors and evaluate MAE, RMSE, and R2.
 4. Save the best model to `Freight Cost Prediction/models/predict_freight_model.pkl`.
 
 ### Invoice Flagging
-1. Load the `vendor_invoice` and `purchases` tables.
-2. Build purchase-order-level aggregates with pandas.
-3. Merge invoice and purchase aggregates and engineer date-delay features.
-4. Create the `flag_invoice` target from business rules.
+1. Load `vendor_invoice` and `purchases`.
+2. Build purchase-order-level aggregates.
+3. Merge aggregates and engineer delay/date features.
+4. Create `flag_invoice` labels from business rules.
 5. Train three classifiers and evaluate Accuracy, Precision, Recall, and F1.
 6. Save the best model bundle to `Invoice Flagging/models/invoice_flagging_model.pkl`.
 
-### Inference Flow
-1. Open the Streamlit app.
-2. The app loads model artifacts with `joblib`.
-3. Enter features manually or upload a CSV file for invoice flagging.
-4. View the prediction and risk probability when available.
+### Inference
+1. Launch the Streamlit app.
+2. Load model artifacts.
+3. Enter features manually or upload CSV (invoice flagging).
+4. View predictions and, where available, risk probability.
 
 ## Project Structure
 
@@ -92,9 +97,9 @@ Invoice Intelligence System/
         └── invoice_flagging_model.pkl
 ```
 
-## Setup
+## Quick Start
 
-### 1. Activate the virtual environment
+### 1. Activate virtual environment
 
 ```bash
 source .venv/bin/activate
@@ -106,14 +111,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Train the models
+### 3. Train models
 
 ```bash
 python "Freight Cost Prediction/train.py"
 python "Invoice Flagging/train.py"
 ```
 
-### 4. Launch the app
+### 4. Run app
 
 ```bash
 streamlit run app.py
@@ -121,5 +126,9 @@ streamlit run app.py
 
 ## Notes
 
-- The repository is organized as two independent ML workflows under a single UI.
-- Future improvements could include model version metadata, stricter feature validation, artifact tracking, and automated tests for preprocessing and prediction paths.
+- The repository is organized as two independent ML workflows with a shared UI.
+- Potential next improvements:
+  - Model version metadata
+  - Stronger feature validation
+  - Artifact tracking
+  - Automated tests for preprocessing and prediction paths
