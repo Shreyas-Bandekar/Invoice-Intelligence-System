@@ -131,4 +131,8 @@ streamlit run app.py
   - Model version metadata
   - Stronger feature validation
   - Artifact tracking
-  - Automated tests for preprocessing and prediction paths
+  - Automated tests for preprocessing and prediction pathsBuilt an end-to-end machine learning pipeline for freight cost prediction and invoice risk classification.
+– Engineered 25+ structured and text-based features using preprocessing, text extraction, and semantic similarity techniques.
+– Improved model reliability using cross-validation and hyperparameter tuning with evaluation metrics including MAE,
+RMSE, R², and F1-score.
+– Developed and deployed a Streamlit application supporting real-time predictions and bulk CSV invoice processin
