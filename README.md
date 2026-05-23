@@ -135,4 +135,4 @@ streamlit run app.py
 – Engineered 25+ structured and text-based features using preprocessing, text extraction, and semantic similarity techniques.
 – Improved model reliability using cross-validation and hyperparameter tuning with evaluation metrics including MAE,
 RMSE, R², and F1-score.
-– Developed and deployed a Streamlit application supporting real-time predictions and bulk CSV invoice processin
+– Developed and deployed a Streamlit application supporting real-time predictions and bulk CSV invoice processing
